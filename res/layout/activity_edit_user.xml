@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/enter_old_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/enter_old_password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/enter_new_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/enter_old_password"
+        android:ems="10"
+        android:hint="@string/enter_new_password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/verify_new_password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/enter_new_password"
+        android:ems="10"
+        android:hint="@string/verify_new_password"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/bChangePassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/verify_new_password"
+        android:text="@string/change_password" />
+
+    <Button
+        android:id="@+id/bChangePattern"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verify_new_password"
+        android:layout_toRightOf="@+id/bChangePassword"
+        android:text="@string/change_pattern" />
+
+</RelativeLayout>

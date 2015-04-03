@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>thesis.thesis</groupId>
+	<artifactId>ThesisApi</artifactId>
+	<version>1.0</version>
+	<packaging>apk</packaging>
+	<name>Thesis</name>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<platform.version>4.1.1.4</platform.version>
+		<android.plugin.version>3.6.0</android.plugin.version>
+		<android.sdk.path>/home/enno/android-sdks</android.sdk.path>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<version>${platform.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- <dependency>
+			<groupId>android-lockpattern</groupId>
+			<artifactId>android-lockpattern</artifactId>
+			<version>3.2</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/libs/android-lockpattern.jar</systemPath>
+		</dependency>  -->
+	</dependencies>
+
+
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+					<artifactId>android-maven-plugin</artifactId>
+					<version>${android.plugin.version}</version>
+					<extensions>true</extensions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<configuration>
+					<sdk>
+						<platform>22</platform>
+					</sdk>
+					<emulator>
+						<avd>MiniSample4</avd>
+					</emulator>
+
+				</configuration>
+				<extensions>true</extensions>
+
+			</plugin>
+		</plugins>
+	</build>
+</project>
