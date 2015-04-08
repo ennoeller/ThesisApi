@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -52,23 +53,38 @@ public class NewUser extends Activity {
 						.getParcelable(UsersDataContentProvider.CONTENT_ITEM_TYPE);
 
 		if (extras != null) {
-			usersUri = extras
-					.getParcelable(UsersDataContentProvider.CONTENT_ITEM_TYPE);
-
-			// fillData(usersUri);
+			if (getIntent().hasExtra("username")) {
+				uname.setText(getIntent().getStringExtra("username"));
+			}
+			if (getIntent().hasExtra("password")) {
+				passw.setText(getIntent().getStringExtra("password"));
+			}
 		}
 
 		bCreate = (Button) this.findViewById(R.id.bCreate);
 		bCreate.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
+				// query for usernames and check if entered username already exists
+				boolean exists = false;
+				Cursor mCursor = getContentResolver().query(UsersDataContentProvider.CONTENT_URI, new String[] {UserTable.COLUMN_USER_NAME}, null, null, null);
+				if (mCursor.moveToFirst()) {
+					do {
+						if (mCursor.getString(mCursor.getColumnIndex(UserTable.COLUMN_USER_NAME)).equals(uname.getText().toString())) {
+							exists = true;
+						}
+					} while(mCursor.moveToNext());
+				}
+				
 				if (TextUtils.isEmpty(uname.getText().toString())
 						|| TextUtils.isEmpty(passw.getText().toString())
-						|| !passw.getText().toString()
-								.equals(verify.getText().toString())) {
-					makeToast();
+						|| TextUtils.isEmpty(verify.getText().toString())) {
+					Toast.makeText(getApplicationContext(), "There is an empty field!", Toast.LENGTH_SHORT).show();
+				} else if (!passw.getText().toString().equals(verify.getText().toString())) {
+					Toast.makeText(getApplicationContext(), "Passwords don´t match!", Toast.LENGTH_SHORT).show();
+				} else if(exists == true) {
+					Toast.makeText(getApplicationContext(), "User name already exists! Edit or Delete the old!", Toast.LENGTH_SHORT).show();
 				} else {
-
 					username = uname.getText().toString();
 					password = passw.getText().toString();
 					verifypassword = verify.getText().toString();
@@ -82,28 +98,6 @@ public class NewUser extends Activity {
 		});
 	}
 
-	/*
-	 * private void fillData(Uri uri) { String[] projection = {
-	 * UsersTable.COLUMN_USER_NAME, UsersTable.COLUMN_PASSWORD,
-	 * TodoTable.COLUMN_CATEGORY }; Cursor cursor =
-	 * getContentResolver().query(uri, projection, null, null, null); if (cursor
-	 * != null) { cursor.moveToFirst(); String category =
-	 * cursor.getString(cursor
-	 * .getColumnIndexOrThrow(TodoTable.COLUMN_CATEGORY));
-	 * 
-	 * for (int i = 0; i < mCategory.getCount(); i++) {
-	 * 
-	 * String s = (String) mCategory.getItemAtPosition(i); if
-	 * (s.equalsIgnoreCase(category)) { mCategory.setSelection(i); } }
-	 * 
-	 * mTitleText.setText(cursor.getString(cursor
-	 * .getColumnIndexOrThrow(TodoTable.COLUMN_SUMMARY)));
-	 * mBodyText.setText(cursor.getString(cursor
-	 * .getColumnIndexOrThrow(TodoTable.COLUMN_DESCRIPTION)));
-	 * 
-	 * // always close the cursor cursor.close(); } }
-	 */
-
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		saveState();
@@ -111,19 +105,12 @@ public class NewUser extends Activity {
 				usersUri);
 	}
 
-	/*@Override
-	protected void onPause() {
-		super.onPause();
-		saveState();
-	}*/
-
 	private void saveState() {
 		username = uname.getText().toString();
 		password = passw.getText().toString();
 		verifypassword = verify.getText().toString();
 
 		// only save if no field is empty
-
 		if (username.length() == 0 && password.length() == 0
 				&& verifypassword.length() == 0) {
 			return;
@@ -141,11 +128,6 @@ public class NewUser extends Activity {
 			// Update user
 			getContentResolver().update(usersUri, values, null, null);
 		}
-	}
-
-	private void makeToast() {
-		Toast.makeText(NewUser.this, "Please maintain a summary",
-				Toast.LENGTH_LONG).show();
 	}
 
 	@Override
@@ -197,17 +179,8 @@ public class NewUser extends Activity {
 				// Activity.
 				break;
 			}
-
-			/*
-			 * In any case, there's always a key EXTRA_RETRY_COUNT, which holds
-			 * the number of tries that the user did.
-			 */
-			int retryCount = data.getIntExtra(
-					LockPatternActivity.EXTRA_RETRY_COUNT, 0);
-
 			break;
 		}// REQ_ENTER_PATTERN
 		}
 	}
-
 }

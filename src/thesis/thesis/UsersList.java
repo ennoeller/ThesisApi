@@ -29,6 +29,8 @@ public class UsersList extends ListActivity implements
 	String username;
 	String password;
 	String pattern;
+	
+	Uri uri;
 
 	private static final int ACTIVITY_EDIT = 1;
 	private static final int ACTIVITY_DELETE = 2;
@@ -41,6 +43,20 @@ public class UsersList extends ListActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_users_list);
+		
+		Bundle extras = getIntent().getExtras();
+		
+		if (extras != null) {
+			Intent createNew = new Intent(this, NewUser.class);
+			if (getIntent().hasExtra("username")) {
+				createNew.putExtra("username", getIntent().getStringExtra("username"));
+			}
+			if (getIntent().hasExtra("password")) {
+				createNew.putExtra("password", getIntent().getStringExtra("password"));
+			}
+			startActivity(createNew);
+		}
+		
 		this.getListView().setDividerHeight(2);
 		fillData();
 		registerForContextMenu(getListView());
@@ -69,7 +85,7 @@ public class UsersList extends ListActivity implements
 		case ACTIVITY_DELETE:
 			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
 					.getMenuInfo();
-			Uri uri = Uri.parse(UsersDataContentProvider.CONTENT_URI + "/"
+			uri = Uri.parse(UsersDataContentProvider.CONTENT_URI + "/"
 					+ info.id);
 			getContentResolver().delete(uri, null, null);
 			fillData();
@@ -78,9 +94,9 @@ public class UsersList extends ListActivity implements
 			AdapterContextMenuInfo info1 = (AdapterContextMenuInfo) item
 					.getMenuInfo();
 			Intent i = new Intent(this, EditUser.class);
-			Uri uri1 = Uri.parse(UsersDataContentProvider.CONTENT_URI + "/"
+			uri = Uri.parse(UsersDataContentProvider.CONTENT_URI + "/"
 					+ info1.id);
-			i.putExtra(UsersDataContentProvider.CONTENT_ITEM_TYPE, uri1);
+			i.putExtra(UsersDataContentProvider.CONTENT_ITEM_TYPE, uri);
 
 			startActivity(i);
 
