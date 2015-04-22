@@ -1,16 +1,28 @@
+/*
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ */
+
 package thesis.thesis.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * 
+ * @author Enno Eller
+ * 
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "users-data.db";
 	private static final int DATABASE_VERSION = 1;
 
 	public DatabaseHelper(Context context) {
-	    super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
 	@Override
@@ -23,5 +35,3 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		UserTable.onUpgrade(db, oldVersion, newVersion);
 	}
 }
-
-

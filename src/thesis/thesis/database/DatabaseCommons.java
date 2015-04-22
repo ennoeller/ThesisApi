@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 /**
  * 
- * @author Huber Flores
+ * @author Huber Flores, Enno Eller
  *
  */
 

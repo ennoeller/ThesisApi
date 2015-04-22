@@ -15,7 +15,7 @@ import android.net.Uri;
 
 /**
  * 
- * @author Huber Flores
+ * @author Huber Flores, Enno Eller
  *
  */
 
@@ -49,10 +49,5 @@ public class DatabaseHandler {
 	
 	public static DatabaseManager getDatabaseManager(){
 		return dManager;
-	}
-
-
-	
-	
-	
+	}	
 }

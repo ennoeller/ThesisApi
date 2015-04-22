@@ -20,3 +20,5 @@ proguard/
 *.log
 # target folder
 target/
+*.uml
+*.umlcd

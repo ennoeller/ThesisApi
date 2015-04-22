@@ -10,15 +10,14 @@
 
 package thesis.thesis.database;
 
-//import org.gChess.manager.MyEventContentProvider;
-
+import thesis.thesis.contentprovider.UsersDataContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 
 /**
  * 
- * @author Huber Flores
+ * @author Huber Flores, Enno Eller
  *
  */
 
@@ -38,7 +37,7 @@ public class DatabaseManager {
 		values.put(UserTable.COLUMN_PASSWORD, passw);
 		values.put(UserTable.COLUMN_PATTERN, pattern);
 		 	
-		//dbUri = dContext.getContentResolver().insert(MyEventContentProvider.CONTENT_URI, values);
+		dbUri = dContext.getContentResolver().insert(UsersDataContentProvider.CONTENT_URI, values);
 		
 	 }
 	

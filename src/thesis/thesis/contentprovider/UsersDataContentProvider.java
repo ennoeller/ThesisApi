@@ -1,3 +1,10 @@
+/*
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ */
+
 package thesis.thesis.contentprovider;
 
 import java.util.Arrays;
@@ -15,6 +22,11 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+/**
+ * 
+ * @author Enno Eller
+ *
+ */
 public class UsersDataContentProvider extends ContentProvider {
 
 	private DatabaseHelper database;
